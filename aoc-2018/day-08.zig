@@ -33,7 +33,7 @@ fn buildTree(allocator: mem.Allocator, data: []const u32) !Node {
     var tail = data[2..];
 
     // store the nodes and the number of children currently attached to them
-    var queue: std.ArrayList(struct { node: *Node, attached: usize }) = .empty;
+    var queue: std.MultiArrayList(struct { node: *Node, attached: usize }) = .empty;
     defer queue.deinit(allocator);
 
     try queue.append(allocator, .{ .node = &root, .attached = 0 });
@@ -134,10 +134,16 @@ pub fn main() !void {
     defer allocator.free(numbers);
 
     const root = try buildTree(allocator, numbers);
+
+    // -- part one -- //
+
     const sum_metadata = try sumMetadata(allocator, &root);
 
     std.debug.print("part one: {}\n", .{sum_metadata});
 
+    // -- part two -- //
+
     const root_value = try computeRootValue(allocator, &root);
+
     std.debug.print("part two: {}\n", .{root_value});
 }
