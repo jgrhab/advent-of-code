@@ -134,11 +134,8 @@ fn fillMap(allocator: mem.Allocator, map: *std.AutoHashMapUnmanaged(u32, std.Arr
     }
 }
 
-pub fn main() !void {
-    var gpa: std.heap.GeneralPurposeAllocator(.{}) = .{};
-    defer std.debug.assert(gpa.deinit() == .ok);
-
-    var arena: std.heap.ArenaAllocator = .init(gpa.allocator());
+pub fn main(init: std.process.Init) !void {
+    var arena = init.arena.*;
     defer arena.deinit();
 
     const allocator = arena.allocator();

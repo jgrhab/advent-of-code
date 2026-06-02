@@ -76,11 +76,8 @@ const SkyMap = struct {
     }
 };
 
-pub fn main() !void {
-    var gpa: std.heap.GeneralPurposeAllocator(.{}) = .{};
-    defer std.debug.assert(gpa.deinit() == .ok);
-
-    const allocator = gpa.allocator();
+pub fn main(init: std.process.Init) !void {
+    const allocator = init.gpa;
 
     var map: SkyMap = try .fromInput(allocator, input);
     defer map.deinit(allocator);

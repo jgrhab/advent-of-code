@@ -124,8 +124,8 @@ fn computeRootValue(allocator: mem.Allocator, root: *const Node) !u32 {
     return node_values.get(root).?;
 }
 
-pub fn main() !void {
-    var arena = std.heap.ArenaAllocator.init(std.heap.page_allocator);
+pub fn main(init: std.process.Init) !void {
+    var arena = init.arena.*;
     defer arena.deinit();
 
     const allocator = arena.allocator();

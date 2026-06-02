@@ -1,6 +1,6 @@
 const std = @import("std");
 
-pub fn main() !void {
+pub fn main(init: std.process.Init) !void {
     const input = @embedFile("input/day-01.txt");
 
     var freq: i32 = 0;
@@ -14,10 +14,7 @@ pub fn main() !void {
 
     // -- part two -- //
 
-    var gpa: std.heap.GeneralPurposeAllocator(.{}) = .{};
-    defer _ = gpa.deinit();
-
-    const allocator = gpa.allocator();
+    const allocator = init.gpa;
 
     var seen: std.AutoHashMapUnmanaged(i32, void) = .empty;
     defer seen.clearAndFree(allocator);

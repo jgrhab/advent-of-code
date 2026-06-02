@@ -101,10 +101,8 @@ fn reduce(allocator: mem.Allocator, polymer: *const Polymer) !u32 {
     return count;
 }
 
-pub fn main() !void {
-    var gpa: std.heap.GeneralPurposeAllocator(.{}) = .{};
-    defer std.debug.assert(gpa.deinit() == .ok);
-    const allocator = gpa.allocator();
+pub fn main(init: std.process.Init) !void {
+    const allocator = init.gpa;
 
     const polymer = try Polymer.init(allocator, input);
     defer polymer.deinit(allocator);

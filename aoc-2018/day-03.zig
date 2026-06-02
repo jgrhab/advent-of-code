@@ -39,11 +39,8 @@ fn getMaxDimensions(data: []const InputLine) struct { wdt: u32, hgt: u32 } {
     return .{ .wdt = max_wdt, .hgt = max_hgt };
 }
 
-pub fn main() !void {
-    var gpa: std.heap.GeneralPurposeAllocator(.{}) = .{};
-    defer _ = gpa.deinit();
-
-    const allocator = gpa.allocator();
+pub fn main(init: std.process.Init) !void {
+    const allocator = init.gpa;
 
     const line_count = mem.count(u8, input, "\n");
 

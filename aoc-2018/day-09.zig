@@ -82,11 +82,8 @@ fn computeHighScore(allocator: mem.Allocator, players: u32, last_marble: u32) !u
     return mem.max(u32, score);
 }
 
-pub fn main() !void {
-    var gpa: std.heap.GeneralPurposeAllocator(.{}) = .{};
-    defer std.debug.assert(gpa.deinit() == .ok);
-
-    const allocator = gpa.allocator();
+pub fn main(init: std.process.Init) !void {
+    const allocator = init.gpa;
 
     const data = try parseInput(input);
 
